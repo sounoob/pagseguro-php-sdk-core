@@ -29,9 +29,8 @@ class Discover
     private static function request_test()
     {
         try {
-            $transactions = new \Sounoob\pagseguro\SearchTransaction();
-            $transactions->setReference('boonuos');
-            $transactions->send();            
+            $test = new \Sounoob\pagseguro\Test();
+            $test->setReference('boonuos')->send();
             return true;
             
         } catch (\Exception $e) {
