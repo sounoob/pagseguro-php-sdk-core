@@ -11,11 +11,18 @@ class Utils
 
     /**
      * @param int $number
+     * @param int $pad
      * @return int
      */
-    static public function onlyNumbers($number)
+    static public function onlyNumbers($number, $pad = 0)
     {
-        return (int)preg_replace('/[^0-9]/', '', $number);
+        $number = (int)preg_replace('/[^0-9]/', '', $number);
+
+        if ($pad > 0) {
+            $number = str_pad($number, $pad, '0', STR_PAD_LEFT);
+        }
+
+        return $number;
     }
 
     /**
@@ -41,8 +48,7 @@ class Utils
         if (empty($cpf)) {
             return false;
         }
-        $cpf = self::onlyNumbers($cpf);
-        $cpf = str_pad($cpf, 11, '0', STR_PAD_LEFT);
+        $cpf = self::onlyNumbers($cpf, 11);
         if (strlen($cpf) != 11 || preg_match('/(\d)\1{10}/', $cpf)) {
             return false;
         }
@@ -67,8 +73,7 @@ class Utils
         if (empty($cnpj)) {
             return false;
         }
-        $cnpj = self::onlyNumbers($cnpj);
-        $cnpj = str_pad($cnpj, 14, '0', STR_PAD_LEFT);
+        $cnpj = self::onlyNumbers($cnpj, 14);
 
         if (strlen($cnpj) != 14 || preg_match('/(\d)\1{13}/', $cnpj)) {
             return false;
