@@ -25,7 +25,7 @@ class PagSeguro
      */
     protected $get = array();
     /**
-     * @var bool|\stdClass|SimpleXMLElement
+     * @var bool|\stdClass|\SimpleXMLElement
      */
     public $result = false;
 
@@ -64,8 +64,8 @@ class PagSeguro
      */
     public function build()
     {
-        $this->requiredFields();
         $this->defaultValues();
+        $this->requiredFields();
         $this->buildURL();
     }
 
