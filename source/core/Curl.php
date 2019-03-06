@@ -153,10 +153,6 @@ class Curl
         }
 
         $data = curl_exec($this->curl);
-
-        if(mb_detect_encoding($data, 'UTF-8', true) === false) {
-            $data = utf8_encode($data);
-        }
         $statusCode = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
         $error = curl_error($this->curl);
         /*
@@ -171,6 +167,9 @@ class Curl
             //Empty body
             $return = $data;
         } elseif ($data{0} == '{') {
+            if(mb_detect_encoding($data, 'UTF-8', true) === false) {
+                $data = utf8_encode($data);
+            }
             $return = json_decode($data);
         } elseif (strpos($data, '<?xml') !== false) {
             $return = simplexml_load_string($data);
