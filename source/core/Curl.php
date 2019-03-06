@@ -152,8 +152,11 @@ class Curl
             curl_setopt($this->curl, CURLOPT_POST, true);
         }
 
+        $data = curl_exec($this->curl);
 
-        $data = utf8_encode(curl_exec($this->curl));
+        if(mb_detect_encoding($data, 'UTF-8', true) === false) {
+            $data = utf8_encode($data);
+        }
         $statusCode = curl_getinfo($this->curl, CURLINFO_HTTP_CODE);
         $error = curl_error($this->curl);
         /*
