@@ -16,7 +16,7 @@ class Utils
      */
     static public function onlyNumbers($number, $pad = 0)
     {
-        $number = (int)preg_replace('/[^0-9]/', '', $number);
+        $number = preg_replace('/[^0-9]/', '', $number);
 
         if ($pad > 0) {
             $number = str_pad($number, $pad, '0', STR_PAD_LEFT);
