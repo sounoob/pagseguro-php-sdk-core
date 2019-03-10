@@ -51,10 +51,12 @@ class PagSeguro
      */
     private function buildURL()
     {
+        $url = parse_url($this->url);
+
         $this->get['email'] = \Sounoob\pagseguro\config\Config::getEmail();
         $this->get['token'] = \Sounoob\pagseguro\config\Config::getToken();
 
-        $this->url = \Sounoob\pagseguro\config\Url::getWs() . $this->url . '?' . http_build_query($this->get);
+        $this->url = (isset($url['host']) ? $this->url : (\Sounoob\pagseguro\config\Url::getWs() . $this->url)) . '?' . http_build_query($this->get);
 
         $this->curl->setUrl($this->url);
     }
