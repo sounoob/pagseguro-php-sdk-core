@@ -1,6 +1,11 @@
 <?php
 namespace Sounoob\pagseguro\core;
 
+use Exception;
+use SimpleXMLElement;
+use Sounoob\pagseguro\config\Config;
+use stdClass;
+
 /**
  * Class Curl
  * @package Sounoob\pagseguro\core
@@ -29,12 +34,12 @@ class Curl
      * @param null $url
      * @param array $data
      * @param array $header
-     * @throws \Exception
+     * @throws Exception
      */
     public function __construct($url = null, array $data = array(), array $header = array())
     {
         if (!extension_loaded("curl")) {
-            throw new \Exception("cURL extension is required!");
+            throw new Exception("cURL extension is required!");
         }
         $this->curl = curl_init();
 
@@ -55,12 +60,12 @@ class Curl
 
     /**
      * @param $url
-     * @throws \Exception
+     * @throws Exception
      */
     public function setUrl($url)
     {
         if($this->url !== null) {
-            throw new \Exception('Cant rewrite url!');
+            throw new Exception('Cant rewrite url!');
         }else{
             curl_setopt($this->curl, CURLOPT_URL, $url);
         }
@@ -119,7 +124,7 @@ class Curl
 
     /**
      * @param $data
-     * @throws \Exception
+     * @throws Exception
      */
     public function setData($data)
     {
@@ -140,8 +145,8 @@ class Curl
     }
 
     /**
-     * @return \SimpleXMLElement|\stdClass
-     * @throws \Exception
+     * @return SimpleXMLElement|stdClass
+     * @throws Exception
      */
     public function exec()
     {
@@ -162,7 +167,7 @@ class Curl
         if($error) {
             $return = $error;
         } elseif ($statusCode == 401 || $data == 'Unauthorized') {
-            throw new \Exception('E-mail or token is invalid in this environment: ' . (\Sounoob\pagseguro\config\Config::isSandbox() ? 'Sandobx' : 'Production'));
+            throw new Exception('E-mail or token is invalid in this environment: ' . (Config::isSandbox() ? 'Sandobx' : 'Production'));
         } elseif (strlen($data) === 0) {
             //Empty body
             $return = $data;
@@ -181,7 +186,7 @@ class Curl
 
     /**
      * @param string $customRequest
-     * @throws \Exception
+     * @throws Exception
      */
     public function setCustomRequest($customRequest)
     {
@@ -190,7 +195,7 @@ class Curl
             'PUT',
             'POST',
         ))) {
-            throw new \Exception('Request not available!');
+            throw new Exception('Request not available!');
         }
         $this->customRequest = $customRequest;
     }

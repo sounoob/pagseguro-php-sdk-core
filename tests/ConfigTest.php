@@ -1,20 +1,24 @@
 <?php
-class ConfigTest extends \PHPUnit\Framework\TestCase
+
+use PHPUnit\Framework\TestCase;
+use Sounoob\pagseguro\config\Config;
+
+class ConfigTest extends TestCase
 {
     public function testEnv()
     {
-        \Sounoob\pagseguro\config\Config::setProduction();
-        $this->assertEquals(false, \Sounoob\pagseguro\config\Config::isSandbox());
+        Config::setProduction();
+        $this->assertEquals(false, Config::isSandbox());
 
-        \Sounoob\pagseguro\config\Config::setSandbox();
-        $this->assertEquals(true, \Sounoob\pagseguro\config\Config::isSandbox());
+        Config::setSandbox();
+        $this->assertEquals(true, Config::isSandbox());
     }
     public function testToken()
     {
-        \Sounoob\pagseguro\config\Config::setProduction();
-        $this->assertEquals(32, strlen(\Sounoob\pagseguro\config\Config::getToken()));
+        Config::setProduction();
+        $this->assertEquals(32, strlen(Config::getToken()));
 
-        \Sounoob\pagseguro\config\Config::setSandbox();
-        $this->assertEquals(32, strlen(\Sounoob\pagseguro\config\Config::getToken()));
+        Config::setSandbox();
+        $this->assertEquals(32, strlen(Config::getToken()));
     }
 }

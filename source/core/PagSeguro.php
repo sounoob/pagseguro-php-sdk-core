@@ -2,6 +2,12 @@
 
 namespace Sounoob\pagseguro\core;
 
+use Exception;
+use SimpleXMLElement;
+use Sounoob\pagseguro\config\Config;
+use Sounoob\pagseguro\config\Url;
+use stdClass;
+
 /**
  * Class PagSeguro
  * @package Sounoob\pagseguro\core
@@ -25,13 +31,13 @@ class PagSeguro
      */
     protected $get = array();
     /**
-     * @var bool|\stdClass|\SimpleXMLElement
+     * @var bool|stdClass|SimpleXMLElement
      */
     public $result = false;
 
     /**
      * PagSeguro constructor.
-     * @throws \Exception
+     * @throws Exception
      */
     public function __construct()
     {
@@ -47,22 +53,22 @@ class PagSeguro
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     private function buildURL()
     {
         $url = parse_url($this->url);
 
-        $this->get['email'] = \Sounoob\pagseguro\config\Config::getEmail();
-        $this->get['token'] = \Sounoob\pagseguro\config\Config::getToken();
+        $this->get['email'] = Config::getEmail();
+        $this->get['token'] = Config::getToken();
 
-        $this->url = (isset($url['host']) ? $this->url : (\Sounoob\pagseguro\config\Url::getWs() . $this->url)) . '?' . http_build_query($this->get);
+        $this->url = (isset($url['host']) ? $this->url : (Url::getWs() . $this->url)) . '?' . http_build_query($this->get);
 
         $this->curl->setUrl($this->url);
     }
 
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public function build()
     {
@@ -72,8 +78,8 @@ class PagSeguro
     }
 
     /**
-     * @return \SimpleXMLElement|\stdClass
-     * @throws \Exception
+     * @return SimpleXMLElement|stdClass
+     * @throws Exception
      */
     public function send()
     {

@@ -2,7 +2,10 @@
 
 namespace Sounoob\pagseguro;
 
+use Exception;
+use SimpleXMLElement;
 use Sounoob\pagseguro\core\PagSeguro;
+use stdClass;
 
 /**
  * Class Test
@@ -21,8 +24,8 @@ class Test extends PagSeguro
     }
 
     /**
-     * @return \SimpleXMLElement|\stdClass
-     * @throws \Exception
+     * @return SimpleXMLElement|stdClass
+     * @throws Exception
      */
     public function send()
     {

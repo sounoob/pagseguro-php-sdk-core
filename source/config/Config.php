@@ -2,6 +2,9 @@
 
 namespace Sounoob\pagseguro\config;
 
+use Exception;
+use InvalidArgumentException;
+
 /**
  * Class Config
  * @package Sounoob\pagseguro\config
@@ -39,7 +42,7 @@ class Config
 
     /**
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
     public static function isSandbox()
     {
@@ -72,7 +75,7 @@ class Config
     public static function setAccountCredentials($email, $token)
     {
         if (self::$sandbox !== null) {
-            throw new \InvalidArgumentException('The e-mail and token was already defined before');
+            throw new InvalidArgumentException('The e-mail and token was already defined before');
         }
         self::$email = $email;
         self::$token = $token;

@@ -1,6 +1,8 @@
 <?php
 namespace Sounoob\pagseguro\config;
 
+use Exception;
+
 /**
  * Class Url
  * @package Sounoob\pagseguro\config
@@ -9,7 +11,7 @@ class Url
 {
     /**
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public static function getWs()
     {
@@ -18,7 +20,7 @@ class Url
 
     /**
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public static function getPage()
     {
@@ -27,7 +29,7 @@ class Url
 
     /**
      * @return string
-     * @throws \Exception
+     * @throws Exception
      */
     public static function getStc()
     {

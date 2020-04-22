@@ -1,6 +1,9 @@
 <?php
 namespace Sounoob\pagseguro\config;
 
+use Exception;
+use Sounoob\pagseguro\Test;
+
 /**
  * Class Discover
  * @package Sounoob\pagseguro\config
@@ -8,7 +11,7 @@ namespace Sounoob\pagseguro\config;
 class Discover
 {
     /**
-     * @throws \Exception
+     * @throws Exception
      */
     public static  function detect_env()
     {
@@ -18,7 +21,7 @@ class Discover
             Config::setSandbox();
             
             if(self::request_test() === false) {
-                throw new \Exception('E-mail or token is invalid: ' . Config::getEmail() . ' - ' . Config::getToken());
+                throw new Exception('E-mail or token is invalid: ' . Config::getEmail() . ' - ' . Config::getToken());
             }
         }
     }
@@ -29,11 +32,11 @@ class Discover
     private static function request_test()
     {
         try {
-            $test = new \Sounoob\pagseguro\Test();
+            $test = new Test();
             $test->setReference('boonuos')->send();
             return true;
             
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return false;
         }
     }
