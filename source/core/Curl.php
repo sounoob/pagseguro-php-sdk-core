@@ -171,7 +171,7 @@ class Curl
         } elseif (strlen($data) === 0) {
             //Empty body
             $return = $data;
-        } elseif ($data{0} == '{') {
+        } elseif ($data[0]== '{') {
             if(mb_detect_encoding($data, 'UTF-8', true) === false) {
                 $data = utf8_encode($data);
             }
