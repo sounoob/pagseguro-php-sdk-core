@@ -54,10 +54,10 @@ class Utils
         }
         for ($verifier = 9; $verifier < 11; $verifier++) {
             for ($digit = 0, $position = 0; $position < $verifier; $position++) {
-                $digit += $cpf{$position} * (($verifier + 1) - $position);
+                $digit += $cpf[$position] * (($verifier + 1) - $position);
             }
             $digit = ((10 * $digit) % 11) % 10;
-            if ($cpf{$position} != $digit) {
+            if ($cpf[$position] != $digit) {
                 return false;
             }
         }
@@ -80,18 +80,18 @@ class Utils
         }
 
         for ($i = 0, $j = 5, $sum = 0; $i < 12; $i++) {
-            $sum += $cnpj{$i} * $j;
+            $sum += $cnpj[$i] * $j;
             $j = ($j == 2) ? 9 : $j - 1;
         }
         $verifier = $sum % 11;
-        if ($cnpj{12} != ($verifier < 2 ? 0 : 11 - $verifier))
+        if ($cnpj[12] != ($verifier < 2 ? 0 : 11 - $verifier))
             return false;
         for ($i = 0, $j = 6, $sum = 0; $i < 13; $i++) {
-            $sum += $cnpj{$i} * $j;
+            $sum += $cnpj[$i] * $j;
             $j = ($j == 2) ? 9 : $j - 1;
         }
         $verifier = $sum % 11;
-        return $cnpj{13} == ($verifier < 2 ? 0 : 11 - $verifier);
+        return $cnpj[13] == ($verifier < 2 ? 0 : 11 - $verifier);
     }
 
 }
